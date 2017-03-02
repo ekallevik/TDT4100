@@ -16,11 +16,11 @@ public class GameController {
 	TextField inputField ; 
 	
 	//Her maa du deklarerere spillet ditt dersom det heter noe annet enn TicTacToe
-	TicTacToe game ; 
+	Sudoku game ; 
 	
 	public void initialize(){
 		//Her maa du opprette et objekt av spillet ditt med de argumentene som behoves for det - resten av koden vil gaa ut ifra at du har kalt den game
-		game = new TicTacToe() ; 
+		game = new Sudoku() ; 
 		console.setText(game.toString());
 	}
 	
