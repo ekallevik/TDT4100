@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="foreksempel/src"/>
+	<classpathentry kind="src" path="lf/src"/>
+	<classpathentry kind="src" path="lf/tests"/>
+	<classpathentry kind="src" path="ovinger/betatest"/>
+	<classpathentry kind="src" path="ovinger/src"/>
+	<classpathentry kind="src" path="ovinger/tests"/>
+	<classpathentry kind="lib" path="ovinger/libs/jexercise-runtime.jar"/>
+	<classpathentry kind="lib" path="ovinger/libs/no.hal.javafx.fxmlapp.lib_0.0.1.201701160851.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 class Sudoku {
 
-	Cell[][] board = new Cell[9][9]; 
+	private Cell[][] board = new Cell[9][9]; 
 	
 	public Sudoku(){
 		
