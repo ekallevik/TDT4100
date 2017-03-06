@@ -244,7 +244,7 @@
         <attempts xsi:type="jdt:JdtLaunchEvent" timestamp="1488453714721" mode="run"/>
         <attempts xsi:type="jdt:JdtLaunchEvent" timestamp="1488453764536" mode="run"/>
       </proposals>
-      <proposals xsi:type="junit:JunitTestProposal" question="/0/@parts.0/@tasks.2/@q" answer="/0/@parts.0/@tasks.2/@a" completion="0.8461538461538461">
+      <proposals xsi:type="junit:JunitTestProposal" question="/0/@parts.0/@tasks.2/@q" answer="/0/@parts.0/@tasks.2/@a" completion="1.0">
         <attempts xsi:type="junit:JunitTestEvent" timestamp="1488449303808" completion="0.0" errorCount="13"/>
         <attempts xsi:type="junit:JunitTestEvent" timestamp="1488449344592" completion="0.0" failureCount="4" errorCount="9"/>
         <attempts xsi:type="junit:JunitTestEvent" timestamp="1488449421783" completion="0.0" failureCount="6" errorCount="7"/>
@@ -263,6 +263,7 @@
         <attempts xsi:type="junit:JunitTestEvent" timestamp="1488454709368" completion="0.5384615384615384" successCount="7" failureCount="4" errorCount="2"/>
         <attempts xsi:type="junit:JunitTestEvent" timestamp="1488454853582" completion="0.6923076923076923" successCount="9" failureCount="4"/>
         <attempts xsi:type="junit:JunitTestEvent" timestamp="1488454945693" completion="0.8461538461538461" successCount="11" failureCount="2"/>
+        <attempts xsi:type="junit:JunitTestEvent" timestamp="1488454960953" completion="1.0" successCount="13"/>
       </proposals>
     </proposals>
     <proposals exercisePart="/0/@parts.1">
