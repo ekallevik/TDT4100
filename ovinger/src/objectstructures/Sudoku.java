@@ -243,32 +243,39 @@ class Sudoku {
 
 	public void undoMove(){
 		
-		State state = undoStack.pop();
+		if(this.undoStack.size() > 0){
+			State state = undoStack.pop();
+			
+			int row = state.getRow();
+			int col = state.getCol();
+			int currentValue = this.board[row][col].getValue();
+			
+			State currentState = new State(currentValue, row, col);
+			
+			this.redoStack.add(currentState);
+			
+			this.setNumber(state);
+		}
 		
-		int row = state.getRow();
-		int col = state.getCol();
-		int currentValue = this.board[row][col].getValue();
-		
-		State currentState = new State(currentValue, row, col);
-		
-		this.redoStack.add(currentState);
-		
-		this.setNumber(state);
+
 	}
 	
 	public void redoMove(){
 		
-		State state = redoStack.pop();
-		
-		int row = state.getRow();
-		int col = state.getCol();
-		int currentValue = this.board[row][col].getValue();
-		
-		State currentState = new State(currentValue, row, col);
-		
-		this.undoStack.add(currentState);
-		
-		this.setNumber(state);
+		if(this.redoStack.size() > 0){
+			State state = redoStack.pop();
+			
+			int row = state.getRow();
+			int col = state.getCol();
+			int currentValue = this.board[row][col].getValue();
+			
+			State currentState = new State(currentValue, row, col);
+			
+			this.undoStack.add(currentState);
+			
+			this.setNumber(state);
+		}
+
 	}
 	
 	
@@ -277,37 +284,39 @@ class Sudoku {
 		
 		System.out.println("Test");
 		
-//		Sudoku myBoard = new Sudoku();
-//		
-//		myBoard.setNumber(4, 0, 0);
-//		System.out.println(myBoard.toString());
+		Sudoku myBoard = new Sudoku();
 		
+		myBoard.undoMove();
+		System.out.println(myBoard.toString());
 		
-//		myBoard.undoMove();
-//		System.out.println(myBoard.toString());
-//		
-//		myBoard.redoMove();
-//		System.out.println(myBoard.toString());
+		myBoard.setNumber(4, 0, 0);
+		System.out.println(myBoard.toString());
+				
+		myBoard.undoMove();
+		System.out.println(myBoard.toString());
 		
-//		//String imB = ".....2..38.273.45....6..87.9.8..5367..6...1..4513..9.8.84..3....79.512.62..8......";
-//		
-//		//System.out.println(imB.length());
-//		
-//		System.out.println(myBoard.toString());
-//
-//		// myBoard.importBoard(imB);
-//		//myBoard.getInput("import");
-//		//System.out.println(myBoard.toString());
+		myBoard.redoMove();
+		System.out.println(myBoard.toString());
+		
+		String imB = ".....2..38.273.45....6..87.9.8..5367..6...1..4513..9.8.84..3....79.512.62..8......";
+		
+		System.out.println(imB.length());
+		
+		System.out.println(myBoard.toString());
+
+		myBoard.importBoard(imB);
+		myBoard.getInput("import");
+		System.out.println(myBoard.toString());
 		
 
-//		myBoard.setNumber(2, 1, 1);
-//		System.out.println(myBoard.toString());
-//		
-//		myBoard.setNumber(0, 1, 1);
-//		System.out.println(myBoard.toString());
-//		
-//		myBoard.setNumber(8, 4, 1);
-//		System.out.println(myBoard.toString());
+		myBoard.setNumber(2, 1, 1);
+		System.out.println(myBoard.toString());
+		
+		myBoard.setNumber(0, 1, 1);
+		System.out.println(myBoard.toString());
+		
+		myBoard.setNumber(8, 4, 1);
+		System.out.println(myBoard.toString());
 		
 
 	}

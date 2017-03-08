@@ -24,6 +24,7 @@ public class StringMergingIteratorProgram {
 		List<String> expectedOutput = CollectionLiterals.<String>newArrayList("a", "c", "b", "d", "e");
 		
 		if(values.size() != expectedOutput.size()){
+			System.out.println(values);
 			throw new Exception("The merged output did not contain the expected number of values. Try using the Eclipse debugger to see the difference between the lists.");
 		}
 		
