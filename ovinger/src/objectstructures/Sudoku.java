@@ -1,8 +1,11 @@
 package objectstructures;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Stack;
 
-class Sudoku {
+class Sudoku implements SaveGame{
 
 	private Cell[][] board = new Cell[9][9]; 
 	private Stack<State> undoStack;
@@ -278,6 +281,28 @@ class Sudoku {
 
 	}
 	
+	@Override
+	public void saveGame(String id, String boardString) {
+		// TODO Auto-generated method stub
+		
+        try {
+            FileWriter writer = new FileWriter("MySave.txt", true);
+            writer.write("Hello World");
+            writer.write("\r\n");   // write new line
+            writer.write("Good Bye!");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
+
+	@Override
+	public String loadGame(String id) {
+		// TODO Auto-generated method stub
+	
+		return null;
+	}
 	
 	
 	public static void main(String[] args){
@@ -320,6 +345,9 @@ class Sudoku {
 		
 
 	}
+
+
+
 	
 	
 }

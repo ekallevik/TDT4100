@@ -1,28 +1,37 @@
 package objectstructures;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Move {
 
-	private int value;
-	private int row;
-	private int col;
+	private String board;
 	
-	public Move(int value, int row, int col){
-	
-		this.value = value;
-		this.row = row;
-		this.col = col;
-	}	
-	
-	public int getValue(){
-		return this.value;
+	public Move(String input){
+		this.board = input;
 	}
 	
-	public int getRow(){
-		return this.row;
+	public void saveGame(){
+		
+        try {
+            FileWriter writer = new FileWriter("MySave.txt", true);
+            writer.write(this.board);
+            writer.write("\r\n");   // write new line
+            writer.write("Good Bye!");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
 	}
 	
-	public int getCol(){
-		return this.col;
-	}
+	public static void main(String[] args){
 	
+		Move move = new Move("test");
+		
+		move.saveGame();
+		
+	}
 }
+	
+

@@ -14,7 +14,7 @@ class Cell {
 
 		value = 0;
 		readOnly = false;
-		isInConflict = false;
+		isInConflict = false; 
 		colList = new ArrayList<Integer>();
 		rowList = new ArrayList<Integer>();
 		
