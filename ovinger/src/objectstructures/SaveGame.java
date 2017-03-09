@@ -2,7 +2,7 @@ package objectstructures;
 
 public interface SaveGame {
 
-    public void saveGame(String id, String boardString);
+    public void saveGame(String id);
     
-    public String loadGame(String id);
+    public void loadGame(String id);
 }

@@ -1,8 +1,13 @@
 package objectstructures;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
 class Sudoku implements SaveGame{
@@ -10,11 +15,13 @@ class Sudoku implements SaveGame{
 	private Cell[][] board = new Cell[9][9]; 
 	private Stack<State> undoStack;
 	private Stack<State> redoStack;
+	private String startBoard;
 	
 	public Sudoku(){
 		
 		this.undoStack = new Stack<State>();
 		this.redoStack = new Stack<State>();
+		this.startBoard = "";
 		
 		for (int i = 0; i <9; i++){
 			this.board[i] = new Cell[9];
@@ -26,10 +33,24 @@ class Sudoku implements SaveGame{
 	}
 	
 	
+	public void clearBoard(){
+		this.undoStack = new Stack<State>();
+		this.redoStack = new Stack<State>();
+		this.startBoard = "";
+		
+		for (int i = 0; i <9; i++){
+			this.board[i] = new Cell[9];
+			for(int j = 0; j<9; j++){
+				this.board[i][j] = new Cell();
+			}
+		}
+	}
+	
 	public void importBoard(String importedBoard){
 		
 		char temp = ' ';
 		int value = 0;
+		this.startBoard = importedBoard;
 		
 		for (int i = 0; i <9; i++){
 			 
@@ -51,7 +72,7 @@ class Sudoku implements SaveGame{
 	public String toString(){
 		
 	
-		String line = "\n -------------------------------------------- \n";
+		String line = "\n ----------------------------------------------------- \n";
 		
 		for (int i = 0; i<9; i++){
 			line += "| ";
@@ -65,7 +86,7 @@ class Sudoku implements SaveGame{
 				}	
 			}
 			if ((i == 2) || (i == 5) || (i == 8)){
-				line += " -------------------------------------------- \n";
+				line += " ----------------------------------------------------- \n";
 			}
 
 			
@@ -120,7 +141,22 @@ class Sudoku implements SaveGame{
 		
 		if(move.equals("import")){
 			this.importBoard(".....2..38.273.45....6..87.9.8..5367..6...1..4513..9.8.84..3....79.512.62..8......");
-		}		
+		}
+		else if(move.equals("clear")){
+			this.clearBoard();
+		}
+		else if(move.equals("save")){
+			this.saveGame("MySave2");
+		}
+		else if(move.equals("load")){
+			this.loadGame("MySave2");
+		}
+		else if(move.equals("undo")){
+			this.undoMove();
+		}
+		else if(move.equals("redo")){
+			this.redoMove();
+		}
 		else{
 			int value = Character.getNumericValue(move.charAt(0));
 			int row = Character.getNumericValue(move.charAt(1));
@@ -282,14 +318,27 @@ class Sudoku implements SaveGame{
 	}
 	
 	@Override
-	public void saveGame(String id, String boardString) {
-		// TODO Auto-generated method stub
+	public void saveGame(String id) {
+
+		
+		String line = "";
+		
+		for (int i = 0; i < 9; i++){
+			for (int j = 0; j < 9; j++){
+				if (this.board[i][j].getValue() == 0){
+					line += '.';
+				}
+				else{
+					line += Integer.toString(this.board[i][j].getValue());
+				}
+			}
+		}
 		
         try {
-            FileWriter writer = new FileWriter("MySave.txt", true);
-            writer.write("Hello World");
-            writer.write("\r\n");   // write new line
-            writer.write("Good Bye!");
+            FileWriter writer = new FileWriter(id);
+            writer.write(line);
+            writer.write("\r\n\r");
+            writer.write(this.startBoard);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -298,17 +347,65 @@ class Sudoku implements SaveGame{
 
 
 	@Override
-	public String loadGame(String id) {
-		// TODO Auto-generated method stub
+	public void loadGame(String id) {
+
 	
-		return null;
+		Scanner in;
+        try
+        {
+            in = new Scanner(new FileReader(id));
+            String currentBoard = "";
+            String startBoard = "";
+            int i = 0;
+            
+            while(in.hasNext()){
+                String line = in.nextLine();
+                System.out.println(line);
+                if (i == 0){
+                	currentBoard = line;
+                }
+                else{
+                	startBoard = line;
+
+                }
+                i++;
+            }
+             
+            in.close();
+            
+        	this.clearBoard();
+        	this.importBoard(startBoard);
+        	
+        	char charValue;
+        	int value;
+        	
+        	for ( int r = 0; r < 9; r++){
+        		for (int c = 0; c < 9; c++){
+            		charValue = currentBoard.charAt(r*9 + c);
+            		value = Character.getNumericValue(charValue);
+            		if (value > 0){
+                		this.setNumber(value, r, c);
+            		}
+
+        		}
+
+        	}
+        	
+        	
+            
+        }
+        catch (FileNotFoundException e)
+        {
+            System.err.println("Error: file could not be opened. Does it exist?");
+            System.exit(1);
+        }
+
 	}
 	
 	
 	public static void main(String[] args){
 		
-		System.out.println("Test");
-		
+	
 		Sudoku myBoard = new Sudoku();
 		
 		myBoard.undoMove();
@@ -323,17 +420,6 @@ class Sudoku implements SaveGame{
 		myBoard.redoMove();
 		System.out.println(myBoard.toString());
 		
-		String imB = ".....2..38.273.45....6..87.9.8..5367..6...1..4513..9.8.84..3....79.512.62..8......";
-		
-		System.out.println(imB.length());
-		
-		System.out.println(myBoard.toString());
-
-		myBoard.importBoard(imB);
-		myBoard.getInput("import");
-		System.out.println(myBoard.toString());
-		
-
 		myBoard.setNumber(2, 1, 1);
 		System.out.println(myBoard.toString());
 		
@@ -342,7 +428,25 @@ class Sudoku implements SaveGame{
 		
 		myBoard.setNumber(8, 4, 1);
 		System.out.println(myBoard.toString());
+
+		myBoard.getInput("import");
+		System.out.println(myBoard.toString());
 		
+		myBoard.saveGame("MySave3");
+		
+		myBoard.clearBoard();
+		System.out.println(myBoard.toString());
+
+		
+		myBoard.loadGame("MySave3");
+		System.out.println(myBoard.toString());
+		
+
+
+		
+		
+		
+
 
 	}
 
